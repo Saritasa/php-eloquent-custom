@@ -217,4 +217,17 @@ class User extends Entity implements IAuthenticatable, ICanResetPassword, IAutho
             static::EMAIL_VERIFIED_AT => $this->freshTimestamp(),
         ])->save();
     }
+
+    /**
+     * @return string
+     */
+    public function getDateFormat(): string
+    {
+        if ($this->getConnection()->getDriverName() === 'pgsql') {
+            return 'Y-m-d H:i:s.u';
+        }
+
+        return 'Y-m-d H:i:s';
+    }
+
 }
